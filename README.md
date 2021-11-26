@@ -41,3 +41,5 @@ This virtual network will start the following virtual machines:
 | target2  | `192.168.42.4` | communicate w/target1 |
 
 > Then, you'll be able to access to each virtual computer with the command `vagrant ssh <hostname>`.
+
+> To remove the environment, type `vagrant destroy` and confirm each computer removal.
