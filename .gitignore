@@ -1,0 +1,5 @@
+ft_malcom
+.vscode
+.vagrant
+*.o
+*.a
