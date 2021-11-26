@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
 	config.vm.box = "generic/centos8"
+	config.vm.synced_folder ".", "/tmp/ft_malcom"
 
 	config.vm.define "blackhat" do |c|
 		c.vm.box = "generic/centos8"
