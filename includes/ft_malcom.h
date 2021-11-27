@@ -14,8 +14,15 @@
 # include <sys/types.h>
 # include <sys/socket.h>
 
+/* getaddrinfo */
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
 /* typedefs */
+typedef struct addrinfo t_addrinfo;
 typedef struct sockaddr_in t_sockaddr_in;
+typedef struct sockaddr_in6 t_sockaddr_in6;
 typedef struct sockaddr t_sockaddr;
 typedef t_sockaddr t_sockaddr_hw;
 
@@ -64,5 +71,8 @@ void	free_malcom_struct(t_malcom *mstruct);
 
 /* debug.c */
 void	display_mstruct(t_malcom *mstruct);
+
+/* nslookup */
+void	dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
 
 #endif

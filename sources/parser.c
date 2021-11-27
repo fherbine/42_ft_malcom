@@ -117,5 +117,4 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 		display_usage(TRUE);
 	}
 	get_options(1, argc, argv, mstruct);
-	argv = NULL;
 }
