@@ -6,9 +6,11 @@ void display_mstruct(t_malcom *mstruct)
 	printf(" mode: %s\n", ft_itoa_base(mstruct->mode, 16));
 	printf(" Src host:\n");
 	printf("  hostname: %s\n", mstruct->src_host.hostname);
+	printf("  IP: %s\n", inet_ntoa(mstruct->src_host.sock_addr_in.sin_addr));
 	printf("  MAC: %s\n", mstruct->src_host.macstr);
 	printf(" Dst host:\n");
 	printf("  hostname: %s\n", mstruct->dst_host.hostname);
+	printf("  IP: %s\n", inet_ntoa(mstruct->dst_host.sock_addr_in.sin_addr));
 	printf("  MAC: %s\n", mstruct->dst_host.macstr);
 	printf(" options:\n");
 	printf("  flags: %s\n", ft_itoa_base(mstruct->options.flags, 16));

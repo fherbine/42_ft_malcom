@@ -11,7 +11,7 @@ void				dnslookup(char *host, t_sockaddr *addr, uint8_t ipver)
 	hints.ai_flags |= AI_CANONNAME;
 	if (getaddrinfo(host, NULL, &hints, &first_info))
 	{
-		dprintf(STDERR, "ft_malcom: %s: Name or service not known.", host);
+		dprintf(STDERR, "ft_malcom: %s: Name or service not known.\n", host);
 		exit(EXIT_FAILURE);
 	}
 	

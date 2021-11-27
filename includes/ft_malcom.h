@@ -19,6 +19,9 @@
 #include <sys/socket.h>
 #include <netdb.h>
 
+/* inet_ntoa */
+#include <arpa/inet.h>
+
 /* typedefs */
 typedef struct addrinfo t_addrinfo;
 typedef struct sockaddr_in t_sockaddr_in;

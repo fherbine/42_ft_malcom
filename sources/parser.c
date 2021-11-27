@@ -117,4 +117,6 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 		display_usage(TRUE);
 	}
 	get_options(1, argc, argv, mstruct);
+	dnslookup(mstruct->src_host.hostname, (t_sockaddr *)&(mstruct->src_host.sock_addr_in), AF_INET);
+	dnslookup(mstruct->dst_host.hostname, (t_sockaddr *)&(mstruct->dst_host.sock_addr_in), AF_INET);
 }
