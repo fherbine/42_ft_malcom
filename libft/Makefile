@@ -46,11 +46,12 @@ $(OBJ_PATH):
 
 $(NAME): $(OBJ_PATH) $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
-	@echo "✅ Source files: 81 / 81\033[0m --> \033[1;32m[Done]\033[0m"
+	@echo -e "✅ Source files: 81 / 81\033[0m --> \033[1;32m[Done]\033[0m"
 
 $(OBJ_PATH)/%.o: %.c
+	@$(eval SHELL:=/bin/bash)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $? -o $@
-	@echo "🔧 Source files: $(shell ls -1 $(OBJ_PATH) | wc -l) / 81\r\c"
+	@echo -e "🔧 Source files: $(shell ls -1 $(OBJ_PATH) | wc -l) / 81\r\c"
 
 clean:
 	@rm -rf $(OBJ_PATH)
