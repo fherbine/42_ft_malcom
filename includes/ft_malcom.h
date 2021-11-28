@@ -24,12 +24,17 @@
 /* getifaddrs, freeifaddrs */
 # include <ifaddrs.h>
 
+/* eth struct */
+# include <linux/if_packet.h>
+# include <linux/if_ether.h>
+# include <linux/if_arp.h>
+
 /* typedefs */
 typedef struct addrinfo t_addrinfo;
 typedef struct sockaddr_in t_sockaddr_in;
 typedef struct sockaddr_in6 t_sockaddr_in6;
 typedef struct sockaddr t_sockaddr;
-typedef t_sockaddr t_sockaddr_hw;
+typedef struct sockaddr_pkt t_sockaddr_pkt;
 typedef struct ifaddrs t_ifaddrs;
 
 /* defines */
@@ -48,7 +53,7 @@ typedef struct		s_options {
 }					t_options;
 
 typedef struct		s_host {
-	t_sockaddr_hw	sock_addr_hw;
+	t_sockaddr_pkt	sock_addr_pkt;
 	t_sockaddr_in	sock_addr_in;
 	char			*hostname;
 	char			*macstr;
@@ -81,5 +86,9 @@ void 	print_buffer(void *buffer_addr, ssize_t len);
 
 /* nslookup */
 void	dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
+
+/* mac.c */
+int		stopkt(char *macstr, t_sockaddr_pkt *sa_pkt);
+char	*pkttos(t_sockaddr_pkt *sa_pkt);
 
 #endif
