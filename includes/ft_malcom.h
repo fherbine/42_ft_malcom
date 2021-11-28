@@ -74,6 +74,7 @@ void	free_malcom_struct(t_malcom *mstruct);
 
 /* debug.c */
 void	display_mstruct(t_malcom *mstruct);
+void 	print_buffer(void *buffer_addr, ssize_t len);
 
 /* nslookup */
 void	dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
