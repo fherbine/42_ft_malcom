@@ -1,3 +1,10 @@
+$prerequisite = <<-SCRIPT
+	sudo yum install clang figlet ruby zip -y
+	cd /tmp && wget https://github.com/busyloop/lolcat/archive/master.zip
+	unzip master.zip && cd lolcat-master
+	gem install lolcat
+SCRIPT
+
 Vagrant.configure("2") do |config|
 	config.vm.box = "generic/centos8"
 	config.vm.synced_folder ".", "/tmp/ft_malcom"
@@ -11,6 +18,9 @@ Vagrant.configure("2") do |config|
 			vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 			vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 		end
+
+		c.vm.provision "shell",
+			inline: $prerequisite
 	end
 
 	config.vm.define "target1" do |c|
