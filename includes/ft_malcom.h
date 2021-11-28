@@ -15,12 +15,14 @@
 # include <sys/socket.h>
 
 /* getaddrinfo */
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
+# include <sys/socket.h>
+# include <netdb.h>
 
 /* inet_ntoa */
-#include <arpa/inet.h>
+# include <arpa/inet.h>
+
+/* getifaddrs, freeifaddrs */
+# include <ifaddrs.h>
 
 /* typedefs */
 typedef struct addrinfo t_addrinfo;
@@ -28,6 +30,7 @@ typedef struct sockaddr_in t_sockaddr_in;
 typedef struct sockaddr_in6 t_sockaddr_in6;
 typedef struct sockaddr t_sockaddr;
 typedef t_sockaddr t_sockaddr_hw;
+typedef struct ifaddrs t_ifaddrs;
 
 /* defines */
 # define MALC_MODE_POISON 0x01
