@@ -34,7 +34,7 @@ typedef struct addrinfo t_addrinfo;
 typedef struct sockaddr_in t_sockaddr_in;
 typedef struct sockaddr_in6 t_sockaddr_in6;
 typedef struct sockaddr t_sockaddr;
-typedef struct sockaddr_pkt t_sockaddr_pkt;
+typedef struct sockaddr_ll t_sockaddr_ll;
 typedef struct ifaddrs t_ifaddrs;
 
 /* defines */
@@ -53,7 +53,7 @@ typedef struct		s_options {
 }					t_options;
 
 typedef struct		s_host {
-	t_sockaddr_pkt	sock_addr_pkt;
+	t_sockaddr_ll	sock_addr_ll;
 	t_sockaddr_in	sock_addr_in;
 	char			*hostname;
 	char			*macstr;
@@ -88,7 +88,11 @@ void 	print_buffer(void *buffer_addr, ssize_t len);
 void	dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
 
 /* mac.c */
-int		stopkt(char *macstr, t_sockaddr_pkt *sa_pkt);
-char	*pkttos(t_sockaddr_pkt *sa_pkt);
+int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto);
+char	*pkttos(t_sockaddr_ll *sa_pkt);
+int		maccmp(uint8_t *addr1, uint8_t *addr2);
+
+/* interfaces.c */
+uint8_t	is_mac_in_ifs(uint8_t *macaddr);
 
 #endif
