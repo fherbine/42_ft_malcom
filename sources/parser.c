@@ -119,4 +119,11 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 	get_options(1, argc, argv, mstruct);
 	dnslookup(mstruct->src_host.hostname, (t_sockaddr *)&(mstruct->src_host.sock_addr_in), AF_INET);
 	dnslookup(mstruct->dst_host.hostname, (t_sockaddr *)&(mstruct->dst_host.sock_addr_in), AF_INET);
+
+	if (mstruct->mode == MALC_MODE_POISON) {
+		if (stopkt(mstruct->src_host.macstr, &(mstruct->src_host.sock_addr_ll), ETH_P_ARP) < 0)
+			invalid_mac_addr(mstruct->src_host.macstr);
+		if (stopkt(mstruct->dst_host.macstr, &(mstruct->dst_host.sock_addr_ll), ETH_P_ARP) < 0)
+			invalid_mac_addr(mstruct->dst_host.macstr);
+	}
 }

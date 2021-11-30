@@ -8,7 +8,13 @@ void message_exit(char *msg, int status)
 
 void invalid_host_ip(char *host)
 {
-	dprintf(STDERR, "ft_malcom: unknown host or invalid IP address: (%s).", host);
+	dprintf(STDERR, "ft_malcom: unknown host or invalid IP address: (%s).\n", host);
+	exit(EXIT_FAILURE);
+}
+
+void invalid_mac_addr(char *mac)
+{
+	dprintf(STDERR, "ft_malcom: invalid MAC address: (%s).\n", mac);
 	exit(EXIT_FAILURE);
 }
 

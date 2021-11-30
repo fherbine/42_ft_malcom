@@ -2,6 +2,7 @@
 
 int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto)
 {
+	char range[16] = "0123456789abcdef";
 	char **splitted = NULL;
 	uint8_t i = 0;
 
@@ -12,6 +13,12 @@ int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto)
 
 	while (splitted[i])
 	{
+		if (ft_strlen(splitted[i]) != 2)
+			return (-1);
+		
+		if (!ft_strchr(range, splitted[i][0]) || !ft_strchr(range, splitted[i][1]))
+			return (-1);
+			
 		sa_pkt->sll_addr[i] = (unsigned char) ft_atoi_base(splitted[i], 16);
 		i++;
 	}

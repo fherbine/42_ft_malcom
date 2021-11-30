@@ -71,6 +71,7 @@ typedef struct		s_malcom {
 /** error.c **/
 void 	message_exit(char *msg, int status);
 void 	invalid_host_ip(char *host);
+void	invalid_mac_addr(char *mac);
 void	display_usage(uint8_t w_exit);
 void 	invalid_option(char *optn);
 
