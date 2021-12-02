@@ -95,6 +95,7 @@ int			maccmp(uint8_t *addr1, uint8_t *addr2);
 
 /* interfaces.c */
 uint8_t		is_mac_in_ifs(uint8_t *macaddr);
+char		*is_ip_reachable(struct in_addr ip);
 
 /* ip.c */
 in_addr_t	ip_get_net(in_addr_t ipv4, in_addr_t netmask);
