@@ -117,13 +117,32 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 		display_usage(TRUE);
 	}
 	get_options(1, argc, argv, mstruct);
+
 	dnslookup(mstruct->src_host.hostname, (t_sockaddr *)&(mstruct->src_host.sock_addr_in), AF_INET);
 	dnslookup(mstruct->dst_host.hostname, (t_sockaddr *)&(mstruct->dst_host.sock_addr_in), AF_INET);
 
+	mstruct->src_host.ifa_name = is_ip_reachable(mstruct->src_host.sock_addr_in.sin_addr);
+	mstruct->dst_host.ifa_name = is_ip_reachable(mstruct->dst_host.sock_addr_in.sin_addr);
+
+	if (mstruct->src_host.ifa_name == NULL)
+	{
+		free_malcom_struct(mstruct);
+		ip_is_not_reachable(mstruct->src_host.sock_addr_in.sin_addr, mstruct->src_host.hostname);
+	}
+	if (!mstruct->dst_host.ifa_name)
+	{
+		free_malcom_struct(mstruct);
+		ip_is_not_reachable(mstruct->dst_host.sock_addr_in.sin_addr, mstruct->dst_host.hostname);
+	}
+
 	if (mstruct->mode == MALC_MODE_POISON) {
-		if (stopkt(mstruct->src_host.macstr, &(mstruct->src_host.sock_addr_ll), ETH_P_ARP) < 0)
+		if (stopkt(mstruct->src_host.macstr, &(mstruct->src_host.sock_addr_ll), ETH_P_ARP) < 0) {
+			free_malcom_struct(mstruct);
 			invalid_mac_addr(mstruct->src_host.macstr);
-		if (stopkt(mstruct->dst_host.macstr, &(mstruct->dst_host.sock_addr_ll), ETH_P_ARP) < 0)
+		}
+		if (stopkt(mstruct->dst_host.macstr, &(mstruct->dst_host.sock_addr_ll), ETH_P_ARP) < 0) {
+			free_malcom_struct(mstruct);
 			invalid_mac_addr(mstruct->dst_host.macstr);
+		}
 	}
 }

@@ -57,6 +57,7 @@ typedef struct		s_host {
 	t_sockaddr_in	sock_addr_in;
 	char			*hostname;
 	char			*macstr;
+	char			*ifa_name;
 }					t_host;
 
 typedef struct		s_malcom {
@@ -74,6 +75,7 @@ void 	invalid_host_ip(char *host);
 void	invalid_mac_addr(char *mac);
 void	display_usage(uint8_t w_exit);
 void 	invalid_option(char *optn);
+void 	ip_is_not_reachable(struct in_addr ipv4, char *host);
 
 /* parser.c */
 void	parse(int argc, char **argv, t_malcom *mstruct);

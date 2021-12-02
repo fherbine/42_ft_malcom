@@ -50,3 +50,13 @@ void invalid_option(char *optn)
 	printf("Invalid opttion -- '%s'", optn);
 	display_usage(TRUE);
 }
+
+void ip_is_not_reachable(struct in_addr ipv4, char *host)
+{
+	dprintf(
+		STDERR,
+		"ft_malcom: %s (%s) is not locally reachable through your network interfaces.\n",
+		host, inet_ntoa(ipv4)
+	);
+	exit(EXIT_FAILURE);
+}
