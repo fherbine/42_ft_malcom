@@ -82,18 +82,22 @@ void	parse(int argc, char **argv, t_malcom *mstruct);
 void	free_malcom_struct(t_malcom *mstruct);
 
 /* debug.c */
-void	display_mstruct(t_malcom *mstruct);
-void 	print_buffer(void *buffer_addr, ssize_t len);
+void		display_mstruct(t_malcom *mstruct);
+void 		print_buffer(void *buffer_addr, ssize_t len);
 
 /* nslookup */
-void	dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
+void		dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
 
 /* mac.c */
-int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto);
-char	*pkttos(t_sockaddr_ll *sa_pkt);
-int		maccmp(uint8_t *addr1, uint8_t *addr2);
+int			stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto);
+char		*pkttos(t_sockaddr_ll *sa_pkt);
+int			maccmp(uint8_t *addr1, uint8_t *addr2);
 
 /* interfaces.c */
-uint8_t	is_mac_in_ifs(uint8_t *macaddr);
+uint8_t		is_mac_in_ifs(uint8_t *macaddr);
+
+/* ip.c */
+in_addr_t	ip_get_net(in_addr_t ipv4, in_addr_t netmask);
+uint8_t		is_ip_in_subnet(in_addr_t ipv4, in_addr_t netaddr, in_addr_t broadcast);
 
 #endif
