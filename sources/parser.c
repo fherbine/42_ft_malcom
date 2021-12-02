@@ -153,4 +153,6 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 			invalid_mac_addr(mstruct->dst_host.macstr);
 		}
 	}
+
+	printf("Found available interface: %s\n", mstruct->dst_host.ifa_name);
 }
