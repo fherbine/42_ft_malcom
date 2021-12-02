@@ -76,6 +76,7 @@ void	invalid_mac_addr(char *mac);
 void	display_usage(uint8_t w_exit);
 void 	invalid_option(char *optn);
 void 	ip_is_not_reachable(struct in_addr ipv4, char *host);
+void 	not_in_the_same_net(char *host1, char *host2);
 
 /* parser.c */
 void	parse(int argc, char **argv, t_malcom *mstruct);

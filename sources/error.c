@@ -58,5 +58,13 @@ void ip_is_not_reachable(struct in_addr ipv4, char *host)
 		"ft_malcom: %s (%s) is not locally reachable through your network interfaces.\n",
 		host, inet_ntoa(ipv4)
 	);
-	exit(EXIT_FAILURE);
+}
+
+void not_in_the_same_net(char *host1, char *host2)
+{
+	dprintf(
+		STDERR,
+		"ft_malcom: %s is not in the same network as %s.\n",
+		host1, host2
+	);
 }

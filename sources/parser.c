@@ -126,13 +126,21 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 
 	if (mstruct->src_host.ifa_name == NULL)
 	{
-		free_malcom_struct(mstruct);
 		ip_is_not_reachable(mstruct->src_host.sock_addr_in.sin_addr, mstruct->src_host.hostname);
+		free_malcom_struct(mstruct);
+		exit(EXIT_FAILURE);
 	}
 	if (!mstruct->dst_host.ifa_name)
 	{
-		free_malcom_struct(mstruct);
 		ip_is_not_reachable(mstruct->dst_host.sock_addr_in.sin_addr, mstruct->dst_host.hostname);
+		free_malcom_struct(mstruct);
+		exit(EXIT_FAILURE);
+	}
+
+	if (ft_strcmp(mstruct->dst_host.ifa_name, mstruct->src_host.ifa_name))
+	{
+		not_in_the_same_net(mstruct->src_host.hostname, mstruct->dst_host.hostname);
+		exit(EXIT_FAILURE);
 	}
 
 	if (mstruct->mode == MALC_MODE_POISON) {
