@@ -50,6 +50,7 @@ typedef struct arphdr t_arphdr;
 
 /* fixed values */
 # define IP_ALEN 4
+# define PACKET_SIZE 60
 
 /* structures */
 typedef struct		s_options {
