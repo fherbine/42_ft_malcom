@@ -32,13 +32,13 @@ int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto)
 	return (0);
 }
 
-char	*pkttos(t_sockaddr_ll *sa_pkt)
+char	*pkttos(void *ha_addr)
 {
 	char *byte;
 	char *macstr = ft_strdup("");
 	for (uint8_t i = 0; i < ETH_ALEN; i++)
 	{
-		byte = ft_itoa_base(sa_pkt->sll_addr[i], 16);
+		byte = ft_itoa_base(((unsigned char *)ha_addr)[i], 16);
 		if (ft_strlen(byte) == 1)
 			byte = ft_strjoin(ft_strdup("0"), byte);
 		macstr = ft_strjoin(macstr, byte);

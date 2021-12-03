@@ -109,7 +109,7 @@ void		dnslookup(char *host, t_sockaddr *addr, uint8_t ipver);
 
 /* mac.c */
 int			stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto);
-char		*pkttos(t_sockaddr_ll *sa_pkt);
+char		*pkttos(void *ha_addr);
 int			maccmp(uint8_t *addr1, uint8_t *addr2);
 
 /* interfaces.c */
@@ -122,6 +122,7 @@ uint8_t		is_ip_in_subnet(in_addr_t ipv4, in_addr_t netaddr, in_addr_t broadcast)
 
 /* arp.c */
 void		create_arp_socket(t_malcom *mstruct);
-
 void		send_arp(uint8_t arp_opcode, t_malcom *mstruct);
+void		recv_arp(t_arp_pkt *pkt, t_malcom *mstruct);
+
 #endif

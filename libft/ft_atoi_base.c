@@ -1,8 +1,8 @@
 #include "libft.h"
 
-static size_t	strgetidx(char *s, char c)
+static int32_t	strgetidx(char *s, char c)
 {
-	for (size_t i = 0; i < ft_strlen(s); i++) {
+	for (int32_t i = 0; i < (int32_t)ft_strlen(s); i++) {
 		if (s[i] == c)
 			return (i);
 	}
@@ -34,9 +34,9 @@ long long	ft_atoi_base(const char *str, uint8_t base)
 		sgn = (str[i] == '-') ? -1 : 1;
 		i++;
 	}
-	while (ft_strchr(bmap, str[i]))
+	while (ft_strchr(bmap, str[i]) && str[i])
 	{
-		int8_t add = (int8_t)strgetidx(bmap, str[i]);
+		int32_t add = (int32_t)strgetidx(bmap, str[i]);
 		
 		if (add < 0)
 			return (0);

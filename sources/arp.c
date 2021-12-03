@@ -8,9 +8,11 @@ void create_arp_socket(t_malcom *mstruct)
 
 void send_arp(uint8_t arp_opcode, t_malcom *mstruct)
 {
+	char buffer[PACKET_SIZE];
 	t_arp_pkt pkt;
 
 	ft_bzero(&pkt, sizeof(t_arp_pkt));
+	ft_bzero(buffer, PACKET_SIZE);
 
 	ft_memcpy(pkt.eth_h.h_dest, mstruct->src_host.sock_addr_ll.sll_addr, ETH_ALEN);
 	ft_memcpy(pkt.eth_h.h_source, mstruct->dst_host.sock_addr_ll.sll_addr, ETH_ALEN);
