@@ -126,4 +126,8 @@ void		create_arp_socket(t_malcom *mstruct);
 void		send_arp(uint8_t arp_opcode, t_malcom *mstruct);
 void		recv_arp(t_arp_pkt *pkt, t_malcom *mstruct);
 
+/* verbose.c */
+void		show_arp_pkt(char *label, t_arp_pkt *pkt);
+
+
 #endif
