@@ -36,6 +36,8 @@ typedef struct sockaddr_in6 t_sockaddr_in6;
 typedef struct sockaddr t_sockaddr;
 typedef struct sockaddr_ll t_sockaddr_ll;
 typedef struct ifaddrs t_ifaddrs;
+typedef struct ethhdr t_ethhdr;
+typedef struct arphdr t_arphdr;
 
 /* defines */
 # define MALC_MODE_POISON 0x01
@@ -45,6 +47,9 @@ typedef struct ifaddrs t_ifaddrs;
 
 /* conf */
 # define FLOOD_INVAL 5
+
+/* fixed values */
+# define IP_ALEN 4
 
 /* structures */
 typedef struct		s_options {
@@ -65,7 +70,17 @@ typedef struct		s_malcom {
 	t_options		options;	
 	t_host			src_host;
 	t_host			dst_host;
+	int				socketfd;
 }					t_malcom;
+
+typedef struct		s_arp_pkt {
+	t_ethhdr		eth_h;
+	t_arphdr		arp_h;
+	unsigned char	ar_sha[ETH_ALEN];	/* sender hardware address	*/
+	unsigned char	ar_sip[IP_ALEN];	/* sender IP address		*/
+	unsigned char	ar_tha[ETH_ALEN];	/* target hardware address	*/
+	unsigned char	ar_tip[IP_ALEN];	/* target IP address		*/
+}					t_arp_pkt;
 
 /* prototypes */
 
@@ -104,4 +119,8 @@ char		*is_ip_reachable(struct in_addr ip);
 in_addr_t	ip_get_net(in_addr_t ipv4, in_addr_t netmask);
 uint8_t		is_ip_in_subnet(in_addr_t ipv4, in_addr_t netaddr, in_addr_t broadcast);
 
+/* arp.c */
+void		create_arp_socket(t_malcom *mstruct);
+
+void		send_arp(uint8_t arp_opcode, t_malcom *mstruct);
 #endif

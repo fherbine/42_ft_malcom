@@ -18,7 +18,7 @@ int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto)
 		
 		if (!ft_strchr(range, splitted[i][0]) || !ft_strchr(range, splitted[i][1]))
 			return (-1);
-			
+
 		sa_pkt->sll_addr[i] = (unsigned char) ft_atoi_base(splitted[i], 16);
 		i++;
 	}
@@ -27,7 +27,7 @@ int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto)
 	sa_pkt->sll_family = AF_PACKET;
 	sa_pkt->sll_halen = ETH_ALEN;
 	sa_pkt->sll_hatype = ARPHRD_ETHER;
-	sa_pkt->sll_protocol = eth_proto;
+	sa_pkt->sll_protocol = htons(eth_proto);
 	sa_pkt->sll_ifindex = is_mac_in_ifs(sa_pkt->sll_addr);
 	return (0);
 }
