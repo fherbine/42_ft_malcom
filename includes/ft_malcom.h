@@ -75,13 +75,29 @@ typedef struct		s_malcom {
 	int				socketfd;
 }					t_malcom;
 
+typedef struct		s_com_devices {
+	unsigned char	sha[ETH_ALEN];	/* sender hardware address	*/
+	unsigned char	sip[IP_ALEN];	/* sender IP address		*/
+	unsigned char	tha[ETH_ALEN];	/* target hardware address	*/
+	unsigned char	tip[IP_ALEN];	/* target IP address		*/
+}					t_com_devices;
+
 typedef struct		s_arp_pkt {
 	t_ethhdr		eth_h;
 	t_arphdr		arp_h;
-	unsigned char	ar_sha[ETH_ALEN];	/* sender hardware address	*/
-	unsigned char	ar_sip[IP_ALEN];	/* sender IP address		*/
-	unsigned char	ar_tha[ETH_ALEN];	/* target hardware address	*/
-	unsigned char	ar_tip[IP_ALEN];	/* target IP address		*/
+	t_com_devices	comdev;
+# ifndef ar_sha
+#  define ar_sha comdev.sha
+# endif
+# ifndef ar_sip
+#  define ar_sip comdev.sip
+# endif
+# ifndef ar_tha
+#  define ar_tha comdev.tha
+# endif
+# ifndef ar_tip
+#  define ar_tip comdev.tip
+# endif
 }					t_arp_pkt;
 
 /* prototypes */
