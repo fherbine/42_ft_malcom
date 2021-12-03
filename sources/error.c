@@ -25,6 +25,7 @@ void display_usage(uint8_t w_exit)
 <target IP / hostname> <target MAC>] [-f [-i interval] <src IP / hostname> \
 <target IP / hostname>]\n");
 	printf(" -h\tDisplay usage & exit.\n");
+	printf(" -v\tEnable verbose mode.\n");
 	printf(" -p\tPerform an ARP Poisoning attack.\n");
 	printf(" -f\tPerform an ARP Flooding attack.\n");
 	printf("\n");

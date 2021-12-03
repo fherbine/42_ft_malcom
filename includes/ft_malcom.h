@@ -44,6 +44,7 @@ typedef struct arphdr t_arphdr;
 # define MALC_MODE_FLOOD 0x02
 
 # define MALC_OPT_FLOOD_INVAL 0x01
+# define MALC_OPT_VERBOSE 0x02
 
 /* conf */
 # define FLOOD_INVAL 5

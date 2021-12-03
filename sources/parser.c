@@ -95,6 +95,11 @@ void	get_options(int start, int end, char **argv, t_malcom *mstruct)
 				free_malcom_struct(mstruct);
 				display_usage(TRUE);
 			}
+
+			if (!ft_strcmp(argv[i], "-v"))
+			{
+				mstruct->options.flags |= MALC_OPT_VERBOSE;
+			}
 			else if (!ft_strcmp(argv[i], "-p") && !mstruct->mode)
 				mstruct->mode |= MALC_MODE_POISON;
 			else if (!ft_strcmp(argv[i], "-f") && !mstruct->mode)
