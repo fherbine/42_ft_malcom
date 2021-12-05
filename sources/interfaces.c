@@ -56,3 +56,26 @@ char *is_ip_reachable(struct in_addr ip)
 	freeifaddrs(ifs);
 	return (ret);
 }
+
+void get_ip_from_ifname(in_addr_t *ipv4, char *ifname)
+{
+	t_ifaddrs *ifs = NULL, *p = NULL;
+
+	if (getifaddrs(&ifs) < 0)
+		exit(EXIT_FAILURE);
+
+	p = ifs;
+
+	while (p)
+	{
+		if (p->ifa_addr->sa_family == AF_INET) {
+			if (!ft_strcmp(ifname, p->ifa_name)) {
+				*ipv4 = ((t_sockaddr_in *)p->ifa_addr)->sin_addr.s_addr;
+				break ;
+			}
+		}
+		p = p->ifa_next;
+	}
+	
+	freeifaddrs(ifs);
+}
