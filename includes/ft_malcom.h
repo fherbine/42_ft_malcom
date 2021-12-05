@@ -137,6 +137,7 @@ int			maccmp(uint8_t *addr1, uint8_t *addr2);
 uint8_t		is_mac_in_ifs(uint8_t *macaddr);
 char		*is_ip_reachable(struct in_addr ip);
 void 		get_ip_from_ifname(in_addr_t *ipv4, char *ifname);
+void 		get_mac_from_ifname(uint8_t **macaddr, char *ifname);
 
 /* ip.c */
 in_addr_t	ip_get_net(in_addr_t ipv4, in_addr_t netmask);
