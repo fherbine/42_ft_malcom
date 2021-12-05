@@ -102,3 +102,26 @@ void get_mac_from_ifname(uint8_t **macaddr, char *ifname)
 	
 	freeifaddrs(ifs);
 }
+
+void	get_if_brd(t_sockaddr *brd_addr, char *ifname, uint8_t sa_family)
+{
+	t_ifaddrs *ifs = NULL, *p = NULL;
+
+	if (getifaddrs(&ifs) < 0)
+		exit(EXIT_FAILURE);
+
+	p = ifs;
+
+	while (p)
+	{
+		if (p->ifa_addr->sa_family == sa_family) {
+			if (!ft_strcmp(ifname, p->ifa_name)) {
+				ft_memcpy(brd_addr, p->ifa_broadaddr, sizeof(t_sockaddr));
+				break ;
+			}
+		}
+		p = p->ifa_next;
+	}
+	
+	freeifaddrs(ifs);
+}
