@@ -29,6 +29,9 @@
 # include <linux/if_ether.h>
 # include <linux/if_arp.h>
 
+/* geittimeofday */
+# include <sys/time.h>
+
 /* typedefs */
 typedef struct addrinfo t_addrinfo;
 typedef struct sockaddr_in t_sockaddr_in;
@@ -38,6 +41,7 @@ typedef struct sockaddr_ll t_sockaddr_ll;
 typedef struct ifaddrs t_ifaddrs;
 typedef struct ethhdr t_ethhdr;
 typedef struct arphdr t_arphdr;
+typedef double t_time;
 
 /* defines */
 # define MALC_MODE_POISON 0x01
@@ -144,6 +148,9 @@ void		recv_arp(t_arp_pkt *pkt, t_malcom *mstruct);
 
 /* verbose.c */
 void		show_arp_pkt(char *label, t_arp_pkt *pkt);
+
+/* time.c */
+void    	ft_sleep(double sec);
 
 
 #endif

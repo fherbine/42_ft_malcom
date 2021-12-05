@@ -2,7 +2,8 @@ NAME = ft_malcom
 INCLUDES = ./includes
 SRC_PATH = ./sources
 OBJ_PATH = $(SRC_PATH)/debug
-SRC_NAMES = main.c parser.c error.c debug.c nslookup.c interfaces.c mac.c ip.c arp.c verbose.c
+SRC_NAMES = main.c parser.c error.c debug.c nslookup.c interfaces.c mac.c ip.c \
+arp.c verbose.c poisoning.c time.c
 OBJ_NAMES = $(SRC_NAMES:.c=.o)
 SRCS = $(addprefix $(SRC_PATH)/,$(SRC_NAMES))
 OBJS = $(addprefix $(OBJ_PATH)/,$(OBJ_NAMES))
