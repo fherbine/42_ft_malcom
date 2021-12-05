@@ -1,5 +1,19 @@
 #include "../includes/ft_malcom.h"
 
+static uint8_t check_inval(char *input, t_malcom *mstruct)
+{
+	int32_t uncast = 0;
+
+	uncast = ft_atoi(input);
+	
+	if (uncast < 0 || uncast > 255) {
+		dprintf(STDERR, "ft_malcom: interval must be between 0 & 255.\n");
+		free_malcom_struct(mstruct);
+		exit(EXIT_FAILURE);
+	}
+	return ((uint8_t)uncast);
+}
+
 void	get_args(int start, int end, char **argv, t_malcom *mstruct)
 {
 	uint8_t get_arg_val = FALSE;
@@ -8,7 +22,7 @@ void	get_args(int start, int end, char **argv, t_malcom *mstruct)
 		if (mstruct->mode & MALC_MODE_FLOOD)
 		{
 			if (get_arg_val) {
-				mstruct->options.optn_data[MALC_OPT_FLOOD_INVAL] = argv[i];
+				*((uint8_t *)mstruct->options.optn_data[MALC_OPT_FLOOD_INVAL]) = check_inval(argv[i], mstruct);
 				get_arg_val = 0;
 			}
 			else if (argv[i][0] == '-') {
