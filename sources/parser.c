@@ -22,7 +22,8 @@ void	get_args(int start, int end, char **argv, t_malcom *mstruct)
 		if (mstruct->mode & MALC_MODE_FLOOD)
 		{
 			if (get_arg_val) {
-				*((uint8_t *)mstruct->options.optn_data[MALC_OPT_FLOOD_INVAL]) = check_inval(argv[i], mstruct);
+				check_inval(argv[i], mstruct);
+				mstruct->options.optn_data[MALC_OPT_FLOOD_INVAL] = argv[i];
 				get_arg_val = 0;
 			}
 			else if (argv[i][0] == '-') {

@@ -80,7 +80,7 @@ void get_ip_from_ifname(in_addr_t *ipv4, char *ifname)
 	freeifaddrs(ifs);
 }
 
-void get_mac_from_ifname(uint8_t **macaddr, char *ifname)
+void get_mac_from_ifname(t_sockaddr_ll *macaddr, char *ifname)
 {
 	t_ifaddrs *ifs = NULL, *p = NULL;
 
@@ -93,7 +93,7 @@ void get_mac_from_ifname(uint8_t **macaddr, char *ifname)
 	{
 		if (p->ifa_addr->sa_family == AF_PACKET) {
 			if (!ft_strcmp(ifname, p->ifa_name)) {
-				ft_memcpy(*macaddr, ((t_sockaddr_ll *)p->ifa_addr)->sll_addr, ETH_ALEN);
+				ft_memcpy(macaddr, (t_sockaddr_ll *)p->ifa_addr, sizeof(t_sockaddr_ll));
 				break ;
 			}
 		}
@@ -116,7 +116,22 @@ void	get_if_brd(t_sockaddr *brd_addr, char *ifname, uint8_t sa_family)
 	{
 		if (p->ifa_addr->sa_family == sa_family) {
 			if (!ft_strcmp(ifname, p->ifa_name)) {
-				ft_memcpy(brd_addr, p->ifa_broadaddr, sizeof(t_sockaddr));
+				size_t copy_size = 0;
+				switch (sa_family)
+				{
+				case AF_INET:
+					copy_size = sizeof(t_sockaddr_in);
+					break;
+
+				case AF_PACKET:
+					copy_size = sizeof(t_sockaddr_ll);
+					break;
+				
+				default:
+					copy_size = sizeof(t_sockaddr);
+					break;
+				}
+				ft_memcpy(brd_addr, p->ifa_broadaddr, copy_size);
 				break ;
 			}
 		}

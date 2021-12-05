@@ -60,7 +60,7 @@ typedef double t_time;
 /* structures */
 typedef struct		s_options {
 	uint8_t			flags;
-	void			*optn_data[256];
+	char			*optn_data[256];
 }					t_options;
 
 typedef struct		s_host {
@@ -137,7 +137,7 @@ int			maccmp(uint8_t *addr1, uint8_t *addr2);
 uint8_t		is_mac_in_ifs(uint8_t *macaddr);
 char		*is_ip_reachable(struct in_addr ip);
 void 		get_ip_from_ifname(in_addr_t *ipv4, char *ifname);
-void 		get_mac_from_ifname(uint8_t **macaddr, char *ifname);
+void 		get_mac_from_ifname(t_sockaddr_ll *macaddr, char *ifname);
 void		get_if_brd(t_sockaddr *brd_addr, char *ifname, uint8_t sa_family);
 
 /* ip.c */
@@ -146,14 +146,19 @@ uint8_t		is_ip_in_subnet(in_addr_t ipv4, in_addr_t netaddr, in_addr_t broadcast)
 
 /* arp.c */
 void		create_arp_socket(t_malcom *mstruct);
-void		send_arp(uint8_t arp_opcode, t_malcom *mstruct);
-void		recv_arp(t_arp_pkt *pkt, t_malcom *mstruct);
+void 		send_arp(uint8_t arp_opcode, t_malcom *mstruct, t_com_devices *devices, t_sockaddr_ll *if_ll);
+ssize_t		recv_arp(t_arp_pkt *pkt, t_malcom *mstruct);
 
 /* verbose.c */
 void		show_arp_pkt(char *label, t_arp_pkt *pkt);
 
+/* poisonning.c */
+void		arp_poison(t_malcom *mstruct);
+
 /* time.c */
 void    	ft_sleep(double sec);
 
+/* flooding.c */
+void		arp_flooding(t_malcom *mstruct);
 
 #endif
