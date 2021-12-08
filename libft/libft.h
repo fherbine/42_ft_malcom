@@ -227,4 +227,6 @@ uint8_t					ft_strinarray(char **haystack, char *needle);
 
 double					ft_sqrt(double nb);
 
+uint8_t					ft_is_in_tab(char **tab, char *elem);
+
 #endif

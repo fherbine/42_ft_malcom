@@ -17,6 +17,14 @@ char		**ft_add_tab_elem(char **tab, char *elem)
 	char	**new;
 	int		i;
 
+	if (!tab) {
+		if (!(tab = (char **)malloc(sizeof(char *) * (1))))
+			exit(EXIT_FAILURE);
+		tab[0] = 0;
+		return (tab);
+	}
+
+
 	if (!(new = (char **)malloc(sizeof(char *) * (ft_tab_len(tab) + 2))))
 		exit(EXIT_FAILURE);
 	i = 0;

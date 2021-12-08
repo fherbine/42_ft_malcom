@@ -20,7 +20,7 @@ char		**ft_copy_tab(char **tab)
 	if (!(new = (char **)malloc(sizeof(char *) * (ft_tab_len(tab) + 1))))
 		exit(EXIT_FAILURE);
 	i = 0;
-	while (tab[i])
+	while (tab[i] && tab[i] != NULL)
 	{
 		new[i] = ft_strdup(tab[i]);
 		i++;
