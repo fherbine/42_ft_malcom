@@ -1,5 +1,6 @@
 # Please source this file to access its features
 
 sniff() {
-	tail -f -c +0 $1 | sudo wireshark -k -i - > /dev/null 2&>1 &
+	sudo -v
+	tail -f -c +0 $1 | sudo wireshark -k -i - > /dev/null 2>&1 &
 }
