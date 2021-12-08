@@ -18,9 +18,11 @@ void	arp_poison(t_malcom *mstruct)
 			&& mstruct->src_host.sock_addr_in.sin_addr.s_addr == ipsrc.s_addr
 		)
 		{
+			char *macsrc = pkttos(pkt.eth_h.h_source);
 			printf("An ARP request has been received.\n");
-			printf("\t\e[0;1mMAC address of the request:\e[0m %s\n", pkttos(pkt.eth_h.h_source));
+			printf("\t\e[0;1mMAC address of the request:\e[0m %s\n", macsrc);
 			printf("\t\e[0;1mIP address of the request:\e[0m %s\n", inet_ntoa(ipsrc));
+			free(macsrc);
 			break;
 		}
 	}

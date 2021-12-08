@@ -34,16 +34,20 @@ int		stopkt(char *macstr, t_sockaddr_ll *sa_pkt, uint16_t eth_proto)
 
 char	*pkttos(void *ha_addr)
 {
-	char *byte;
+	char *byte, *_byte;
 	char *macstr = ft_strdup("");
 	for (uint8_t i = 0; i < ETH_ALEN; i++)
 	{
 		byte = ft_itoa_base(((unsigned char *)ha_addr)[i], 16);
-		if (ft_strlen(byte) == 1)
-			byte = ft_strjoin(ft_strdup("0"), byte);
+		if (ft_strlen(byte) == 1) {
+			_byte = ft_strjoin(ft_strdup("0"), byte);
+			free(byte);
+			byte = _byte;
+		}
 		macstr = ft_strjoin(macstr, byte);
 		if (i < 5)
 			macstr = ft_strjoin(macstr, ":");
+		free(byte);
 	}
 	return (macstr);
 }

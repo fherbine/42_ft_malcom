@@ -2,6 +2,8 @@
 # define FT_MALCOM_H
 
 /* includes */
+# include "./ihm.h"
+# include "./mini_nmap.h"
 /** libft **/
 # include "../libft/libft.h"
 /** printf **/
@@ -46,6 +48,7 @@ typedef double t_time;
 /* defines */
 # define MALC_MODE_POISON 0x01
 # define MALC_MODE_FLOOD 0x02
+# define MALC_MODE_INTERACTIVE 0x04
 
 # define MALC_OPT_FLOOD_INVAL 0x01
 # define MALC_OPT_VERBOSE 0x02
@@ -139,10 +142,15 @@ char		*is_ip_reachable(struct in_addr ip);
 void 		get_ip_from_ifname(in_addr_t *ipv4, char *ifname);
 void 		get_mac_from_ifname(t_sockaddr_ll *macaddr, char *ifname);
 void		get_if_brd(t_sockaddr *brd_addr, char *ifname, uint8_t sa_family);
+char		**get_ifs_names(void);
+void		get_if_addr(t_sockaddr *addr, char *ifname, uint8_t sa_family);
+void		get_if_netmask(t_sockaddr *nm, char *ifname, uint8_t sa_family);
 
 /* ip.c */
 in_addr_t	ip_get_net(in_addr_t ipv4, in_addr_t netmask);
 uint8_t		is_ip_in_subnet(in_addr_t ipv4, in_addr_t netaddr, in_addr_t broadcast);
+uint8_t 	get_decimal_netmask(in_addr_t netmask);
+in_addr_t	ip_get_last_ip(in_addr_t ip, in_addr_t netmask);
 
 /* arp.c */
 void		create_arp_socket(t_malcom *mstruct);
@@ -160,5 +168,8 @@ void    	ft_sleep(double sec);
 
 /* flooding.c */
 void		arp_flooding(t_malcom *mstruct);
+
+/* interactive.c */
+void	interactive(t_malcom *mstruct);
 
 #endif

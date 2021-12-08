@@ -140,3 +140,99 @@ void	get_if_brd(t_sockaddr *brd_addr, char *ifname, uint8_t sa_family)
 	
 	freeifaddrs(ifs);
 }
+
+char	**get_ifs_names(void)
+{
+	t_ifaddrs *ifs = NULL, *p = NULL;
+	char **tab = NULL;
+
+	if (getifaddrs(&ifs) < 0)
+		exit(EXIT_FAILURE);
+
+	p = ifs;
+
+	while (p)
+	{
+		if (!ft_is_in_tab(tab, p->ifa_name))
+			tab = ft_add_tab_elem(tab, p->ifa_name);
+		p = p->ifa_next;
+	}
+	freeifaddrs(ifs);
+	return (tab);
+}
+
+void	get_if_addr(t_sockaddr *addr, char *ifname, uint8_t sa_family)
+{
+	t_ifaddrs *ifs = NULL, *p = NULL;
+
+	if (getifaddrs(&ifs) < 0)
+		exit(EXIT_FAILURE);
+
+	p = ifs;
+
+	while (p)
+	{
+		if (p->ifa_addr->sa_family == sa_family) {
+			if (!ft_strcmp(ifname, p->ifa_name)) {
+				size_t copy_size = 0;
+				switch (sa_family)
+				{
+				case AF_INET:
+					copy_size = sizeof(t_sockaddr_in);
+					break;
+
+				case AF_PACKET:
+					copy_size = sizeof(t_sockaddr_ll);
+					break;
+				
+				default:
+					copy_size = sizeof(t_sockaddr);
+					break;
+				}
+				ft_memcpy(addr, p->ifa_addr, copy_size);
+				break ;
+			}
+		}
+		p = p->ifa_next;
+	}
+	
+	freeifaddrs(ifs);
+}
+
+void	get_if_netmask(t_sockaddr *nm, char *ifname, uint8_t sa_family)
+{
+	t_ifaddrs *ifs = NULL, *p = NULL;
+
+	if (getifaddrs(&ifs) < 0)
+		exit(EXIT_FAILURE);
+
+	p = ifs;
+
+	while (p)
+	{
+		if (p->ifa_addr->sa_family == sa_family) {
+			if (!ft_strcmp(ifname, p->ifa_name)) {
+				size_t copy_size = 0;
+				switch (sa_family)
+				{
+				case AF_INET:
+					copy_size = sizeof(t_sockaddr_in);
+					break;
+
+				case AF_PACKET:
+					copy_size = sizeof(t_sockaddr_ll);
+					break;
+				
+				default:
+					copy_size = sizeof(t_sockaddr);
+					break;
+				}
+				ft_memcpy(nm, p->ifa_netmask, copy_size);
+				break ;
+			}
+		}
+		p = p->ifa_next;
+	}
+	
+	freeifaddrs(ifs);
+}

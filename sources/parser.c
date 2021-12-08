@@ -103,6 +103,8 @@ void	get_options(int start, int end, char **argv, t_malcom *mstruct)
 				return ;
 			}
 			break;
+		case MALC_MODE_INTERACTIVE:
+			return ;
 		
 		default:
 			if (!ft_strcmp(argv[i], "-h"))
@@ -115,6 +117,8 @@ void	get_options(int start, int end, char **argv, t_malcom *mstruct)
 			{
 				mstruct->options.flags |= MALC_OPT_VERBOSE;
 			}
+			else if (!ft_strcmp(argv[i], "-I") && !mstruct->mode)
+				mstruct->mode |= MALC_MODE_INTERACTIVE;
 			else if (!ft_strcmp(argv[i], "-p") && !mstruct->mode)
 				mstruct->mode |= MALC_MODE_POISON;
 			else if (!ft_strcmp(argv[i], "-f") && !mstruct->mode)
@@ -137,6 +141,9 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 		display_usage(TRUE);
 	}
 	get_options(1, argc, argv, mstruct);
+
+	if (mstruct->mode & MALC_MODE_INTERACTIVE)
+		return ;
 
 	dnslookup(mstruct->src_host.hostname, (t_sockaddr *)&(mstruct->src_host.sock_addr_in), AF_INET);
 	dnslookup(mstruct->dst_host.hostname, (t_sockaddr *)&(mstruct->dst_host.sock_addr_in), AF_INET);

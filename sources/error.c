@@ -21,13 +21,14 @@ void invalid_mac_addr(char *mac)
 void display_usage(uint8_t w_exit)
 {
 	printf("Usage:\n");
-	printf("sudo ./ft_malcom [ -h ] [-p <src IP / hostname> <src MAC addr> \
-<target IP / hostname> <target MAC>] [-f [-i interval] <src IP / hostname> \
+	printf("sudo ./ft_malcom [ -h -v ] [-I ] | [-p <src IP / hostname> <src MAC addr> \
+<target IP / hostname> <target MAC>] | [-f [-i interval] <src IP / hostname> \
 <target IP / hostname>]\n");
 	printf(" -h\tDisplay usage & exit.\n");
 	printf(" -v\tEnable verbose mode.\n");
 	printf(" -p\tPerform an ARP Poisoning attack.\n");
 	printf(" -f\tPerform an ARP Flooding attack.\n");
+	printf(" -I\tUse the interactive mode (using ARP flooding).\n");
 	printf("\n");
 	printf("Poisonning arguments:\n");
 	printf(" src host/IP\tSource IP address / hostname.\n");
@@ -48,7 +49,7 @@ void display_usage(uint8_t w_exit)
 
 void invalid_option(char *optn)
 {
-	printf("Invalid opttion -- '%s'", optn);
+	printf("Invalid option -- '%s'", optn);
 	display_usage(TRUE);
 }
 

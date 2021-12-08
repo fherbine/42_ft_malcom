@@ -3,7 +3,9 @@
 void create_arp_socket(t_malcom *mstruct)
 {
 	if ((mstruct->socketfd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ARP))) < 0) {
-		perror("socket"); exit(EXIT_FAILURE);}
+		dprintf(STDERR, "ft_malcom: You must be root to create RAW sockets !\n");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void send_arp(uint8_t arp_opcode, t_malcom *mstruct, t_com_devices *devices, t_sockaddr_ll *if_ll)
@@ -33,11 +35,9 @@ void send_arp(uint8_t arp_opcode, t_malcom *mstruct, t_com_devices *devices, t_s
 		mstruct->socketfd, (void *)buffer, PACKET_SIZE, 0,
 		(t_sockaddr *)if_ll, sizeof(t_sockaddr_ll)
 	);
-	//	(t_sockaddr *)&(mstruct->dst_host.sock_addr_ll), sizeof(t_sockaddr_ll)
-	if (ret < 0) {
+
+	if (ret < 0)
 		dprintf(STDERR, "An error occured when sending the packet.\n");
-		perror("sendto");
-	}
 	else if (mstruct->options.flags & MALC_OPT_VERBOSE)
 		show_arp_pkt("\e[34;1;4mPacket sent:\e[0m\n", &pkt);
 }
