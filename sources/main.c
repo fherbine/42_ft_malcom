@@ -33,4 +33,5 @@ int main(int argc, char **argv)
 		interactive(mstruct);
 
 	free_malcom_struct(mstruct);
+	return(0);
 }
