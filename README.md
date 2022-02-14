@@ -178,5 +178,5 @@ Before openning this project, please make sure that you have built the docker im
 in this repository, by typing:
 
 ```sh
-$ docker build -t fherbine_host
+$ docker build -t fherbine_host .
 ```
