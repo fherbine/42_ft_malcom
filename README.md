@@ -78,7 +78,6 @@ $ sniff blackhat.pcap # sniff network in/out on 192.168.42.2 [if=eth1]
 ### Usage:
 
 ```
-### Start a test environment (Vagrant + VirtualBox)
 Usage:
 sudo ./ft_malcom [ -h -v ] [ -I ] | [-p <src IP / hostname> <src MAC addr> <target IP / hostname> <target MAC>] | [-f [-i interval] <src IP / hostname> <target IP / hostname>]
  -h     Display usage & exit.
