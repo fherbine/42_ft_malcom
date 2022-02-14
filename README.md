@@ -31,7 +31,7 @@ $ make
 
 In order to run this program in a safe & legal environment, I provided this program with a virtual private network.
 
-### Start a test environment
+### Start a test environment (Vagrant + VirtualBox)
 
 #### Requirements
 
@@ -78,6 +78,7 @@ $ sniff blackhat.pcap # sniff network in/out on 192.168.42.2 [if=eth1]
 ### Usage:
 
 ```
+### Start a test environment (Vagrant + VirtualBox)
 Usage:
 sudo ./ft_malcom [ -h -v ] [ -I ] | [-p <src IP / hostname> <src MAC addr> <target IP / hostname> <target MAC>] | [-f [-i interval] <src IP / hostname> <target IP / hostname>]
  -h     Display usage & exit.
@@ -164,4 +165,18 @@ To test it (on _black_)
 [vagrant@blackhat ft_malcom]$ make
 [...]
 [vagrant@blackhat ft_malcom]$ sudo ./ft_malcom -v -f <targetted IP> <spoofed IP>
+```
+
+### Start a test environment (Docker + GNS3)
+
+![topology](./.data/images/gns.png)
+
+You can test this project in an isolated environment into [_GNS3_](https://www.gns3.com/),
+thanks to the given topology `simulation.gns3project`.
+
+Before openning this project, please make sure that you have built the docker image
+in this repository, by typing:
+
+```sh
+$ docker build -t fherbine_host
 ```
