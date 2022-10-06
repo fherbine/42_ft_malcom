@@ -4,3 +4,7 @@ sniff() {
 	sudo -v
 	tail -f -c +0 $1 | sudo wireshark -k -i - > /dev/null 2>&1 &
 }
+
+run_webserv() {
+	uwsgi --http :80 --wsgi-file /app/.webserv.py &
+}
