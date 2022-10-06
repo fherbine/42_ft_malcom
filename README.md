@@ -45,7 +45,7 @@ To see the inbound & outbound network packets, please download [Wireshark](https
 A `Vagrantfile` is provided with this project to ease the installation & setup of the
 virtual network.
 
-Make sure `vboxnet0` virtual private network is available in
+Make sure `vboxnet1` virtual private network is available in
 VirtualBox.
 
 To install the virtual environment, you can type:
@@ -168,14 +168,17 @@ To test it (on _black_)
 
 ### Start a test environment (Docker + GNS3)
 
-![topology](./.data/images/gns.png)
-
-You can test this project in an isolated environment into [_GNS3_](https://www.gns3.com/),
-thanks to the given topology `simulation.gns3project`.
-
 Before openning this project, please make sure that you have built the docker image
 in this repository, by typing:
 
 ```sh
 $ docker build -t fherbine_host .
 ```
+
+![topology](./.data/images/gns.png)
+![attack](./.data/images/gns3_attack.png)
+
+You can test this project in an isolated environment into [_GNS3_](https://www.gns3.com/),
+thanks to the given topology `simulation.gns3project`.
+
+
