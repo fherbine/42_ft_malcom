@@ -172,12 +172,14 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 
 	if (mstruct->mode == MALC_MODE_POISON) {
 		if (stopkt(mstruct->src_host.macstr, &(mstruct->src_host.sock_addr_ll), ETH_P_ARP) < 0) {
-			free_malcom_struct(mstruct);
 			invalid_mac_addr(mstruct->src_host.macstr);
+			free_malcom_struct(mstruct);
+			exit(EXIT_FAILURE);
 		}
 		if (stopkt(mstruct->dst_host.macstr, &(mstruct->dst_host.sock_addr_ll), ETH_P_ARP) < 0) {
-			free_malcom_struct(mstruct);
 			invalid_mac_addr(mstruct->dst_host.macstr);
+			free_malcom_struct(mstruct);
+			exit(EXIT_FAILURE);
 		}
 	}
 

@@ -15,7 +15,6 @@ void invalid_host_ip(char *host)
 void invalid_mac_addr(char *mac)
 {
 	dprintf(STDERR, "ft_malcom: invalid MAC address: (%s).\n", mac);
-	exit(EXIT_FAILURE);
 }
 
 void display_usage(uint8_t w_exit)
