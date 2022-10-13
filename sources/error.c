@@ -20,7 +20,7 @@ void invalid_mac_addr(char *mac)
 void display_usage(uint8_t w_exit)
 {
 	printf("Usage:\n");
-	printf("sudo ./ft_malcom [ -h -v ] [-I ] | [-p <spoofed IP / hostname> <spoofed MAC addr> \
+	printf("sudo ./ft_malcom [ -h -v ] [-I ] | [-p [-R] <spoofed IP / hostname> <spoofed MAC addr> \
 <target IP / hostname> <target MAC>] | [-f [-i interval] <spoofed IP / hostname> \
 <target IP / hostname>]\n");
 	printf(" -h\tDisplay usage & exit.\n");
@@ -35,11 +35,14 @@ void display_usage(uint8_t w_exit)
 	printf(" dst host/IP\tTargetted IP address / hostname.\n");
 	printf(" dst MAC\tTargetted MAC address.\n");
 	printf("\n");
-	printf("Poisonning arguments:\n");
+	printf("Poisonning options:\n");
+	printf(" -R          \tSend an ARP REQUEST back after a delay to ensure cache poisonning.\n");
+	printf("\n");
+	printf("Flooding arguments:\n");
 	printf(" spoofed host/IP\tSource IP address / hostname.\n");
 	printf(" dst host/IP\tTargetted IP address / hostname.\n");
 	printf("\n");
-	printf("Poisonning options:\n");
+	printf("Flooding options:\n");
 	printf(" -i <interval>\tCustom flooding interval (default 5 secs).\n");
 
 	if (w_exit)
@@ -48,7 +51,7 @@ void display_usage(uint8_t w_exit)
 
 void invalid_option(char *optn)
 {
-	printf("Invalid option -- '%s'", optn);
+	printf("Invalid option -- '%s'\n", optn);
 	display_usage(TRUE);
 }
 

@@ -52,9 +52,11 @@ typedef double t_time;
 
 # define MALC_OPT_FLOOD_INVAL 0x01
 # define MALC_OPT_VERBOSE 0x02
+# define MALC_OPT_POISON_REQBCK 0x04
 
 /* conf */
 # define FLOOD_INVAL 5
+# define REQBCK_DELAY 6
 
 /* fixed values */
 # define IP_ALEN 4

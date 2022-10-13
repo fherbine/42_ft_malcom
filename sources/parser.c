@@ -4,6 +4,12 @@ static uint8_t check_inval(char *input, t_malcom *mstruct)
 {
 	int32_t uncast = 0;
 
+	if (!ft_isstrnumber(input)) {
+		dprintf(STDERR, "ft_malcom: interval must be a valid number.\n");
+		free_malcom_struct(mstruct);
+		exit(EXIT_FAILURE);
+	}
+
 	uncast = ft_atoi(input);
 	
 	if (uncast < 0 || uncast > 255) {
@@ -50,17 +56,21 @@ void	get_args(int start, int end, char **argv, t_malcom *mstruct)
 		}
 		else
 		{
-			if (!mstruct->dst_host.hostname)
-				mstruct->dst_host.hostname = argv[i];
-			else if (!mstruct->dst_host.macstr)
-				mstruct->dst_host.macstr = argv[i];
-			else if (!mstruct->src_host.hostname)
-				mstruct->src_host.hostname = argv[i];
-			else if (!mstruct->src_host.macstr)
-				mstruct->src_host.macstr = argv[i];
-			else {
-				free_malcom_struct(mstruct);
-				invalid_option(argv[i]);
+			if (!ft_strcmp("-R", argv[i])) {
+				mstruct->options.flags |= MALC_OPT_POISON_REQBCK;
+			} else {
+				if (!mstruct->dst_host.hostname)
+					mstruct->dst_host.hostname = argv[i];
+				else if (!mstruct->dst_host.macstr)
+					mstruct->dst_host.macstr = argv[i];
+				else if (!mstruct->src_host.hostname)
+					mstruct->src_host.hostname = argv[i];
+				else if (!mstruct->src_host.macstr)
+					mstruct->src_host.macstr = argv[i];
+				else {
+					free_malcom_struct(mstruct);
+					invalid_option(argv[i]);
+				}
 			}
 		}
 	}
@@ -79,7 +89,7 @@ void	get_options(int start, int end, char **argv, t_malcom *mstruct)
 		switch (mstruct->mode)
 		{
 		case MALC_MODE_POISON:
-			if (end - i != 4)
+			if (end - i < 4 || end - i > 5)
 			{
 				dprintf(STDERR, "Too few / too many arguments to perform ARP poisoning.\n");
 				free_malcom_struct(mstruct);
@@ -87,6 +97,11 @@ void	get_options(int start, int end, char **argv, t_malcom *mstruct)
 			}
 			else {
 				get_args(i, end, argv, mstruct);
+				if (!mstruct->src_host.hostname || !mstruct->dst_host.hostname || !mstruct->src_host.macstr || !mstruct->dst_host.macstr) {
+					dprintf(STDERR, "Too few / too many arguments to perform ARP poisoning.\n");
+					free_malcom_struct(mstruct);
+					display_usage(TRUE);
+				}
 				return ;
 			}
 			break;
@@ -100,6 +115,11 @@ void	get_options(int start, int end, char **argv, t_malcom *mstruct)
 			}
 			else {
 				get_args(i, end, argv, mstruct);
+				if (!mstruct->src_host.hostname || !mstruct->dst_host.hostname) {
+					dprintf(STDERR, "Too few / too many arguments to perform ARP flooding\n");
+					free_malcom_struct(mstruct);
+					display_usage(TRUE);
+				}
 				return ;
 			}
 			break;
@@ -145,21 +165,21 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 	if (mstruct->mode & MALC_MODE_INTERACTIVE)
 		return ;
 
-	dnslookup(mstruct->src_host.hostname, (t_sockaddr *)&(mstruct->src_host.sock_addr_in), AF_INET);
 	dnslookup(mstruct->dst_host.hostname, (t_sockaddr *)&(mstruct->dst_host.sock_addr_in), AF_INET);
+	dnslookup(mstruct->src_host.hostname, (t_sockaddr *)&(mstruct->src_host.sock_addr_in), AF_INET);
 
 	mstruct->src_host.ifa_name = is_ip_reachable(mstruct->src_host.sock_addr_in.sin_addr);
 	mstruct->dst_host.ifa_name = is_ip_reachable(mstruct->dst_host.sock_addr_in.sin_addr);
 
-	if (mstruct->src_host.ifa_name == NULL)
-	{
-		ip_is_not_reachable(mstruct->src_host.sock_addr_in.sin_addr, mstruct->src_host.hostname);
-		free_malcom_struct(mstruct);
-		exit(EXIT_FAILURE);
-	}
 	if (!mstruct->dst_host.ifa_name)
 	{
 		ip_is_not_reachable(mstruct->dst_host.sock_addr_in.sin_addr, mstruct->dst_host.hostname);
+		free_malcom_struct(mstruct);
+		exit(EXIT_FAILURE);
+	}
+	if (mstruct->src_host.ifa_name == NULL)
+	{
+		ip_is_not_reachable(mstruct->src_host.sock_addr_in.sin_addr, mstruct->src_host.hostname);
 		free_malcom_struct(mstruct);
 		exit(EXIT_FAILURE);
 	}
@@ -171,13 +191,13 @@ void	parse(int argc, char **argv, t_malcom *mstruct)
 	}
 
 	if (mstruct->mode == MALC_MODE_POISON) {
-		if (stopkt(mstruct->src_host.macstr, &(mstruct->src_host.sock_addr_ll), ETH_P_ARP) < 0) {
-			invalid_mac_addr(mstruct->src_host.macstr);
+		if (stopkt(mstruct->dst_host.macstr, &(mstruct->dst_host.sock_addr_ll), ETH_P_ARP) < 0) {
+			invalid_mac_addr(mstruct->dst_host.macstr);
 			free_malcom_struct(mstruct);
 			exit(EXIT_FAILURE);
 		}
-		if (stopkt(mstruct->dst_host.macstr, &(mstruct->dst_host.sock_addr_ll), ETH_P_ARP) < 0) {
-			invalid_mac_addr(mstruct->dst_host.macstr);
+		if (stopkt(mstruct->src_host.macstr, &(mstruct->src_host.sock_addr_ll), ETH_P_ARP) < 0) {
+			invalid_mac_addr(mstruct->src_host.macstr);
 			free_malcom_struct(mstruct);
 			exit(EXIT_FAILURE);
 		}

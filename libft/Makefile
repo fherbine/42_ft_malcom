@@ -29,7 +29,8 @@ SRCS = ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strcat.c \
 	   ft_itoa_base.c ft_prints.c ft_specifier_prints.c ft_put_n_char.c \
 	   ft_append_slash.c ft_is_in_dir.c ft_tab_len.c ft_free_tab.c \
 	   ft_tab_del_elem.c ft_copy_tab.c ft_add_tab_elem.c ft_capitalize.c \
-	   ft_strinarray.c ft_sqrt.c $(LIBSH)/ft_getenv.c ft_is_in_tab.c
+	   ft_strinarray.c ft_sqrt.c $(LIBSH)/ft_getenv.c ft_is_in_tab.c \
+	   ft_isstrnumber.c
 NAME = libft.a
 INCLUDES = ./
 CFLAGS = -Wall -Wextra -Werror
@@ -46,12 +47,12 @@ $(OBJ_PATH):
 
 $(NAME): $(OBJ_PATH) $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
-	@echo -e "✅ Source files: 81 / 81\033[0m --> \033[1;32m[Done]\033[0m"
+	@echo -e "✅ Source files: 82 / 82\033[0m --> \033[1;32m[Done]\033[0m"
 
 $(OBJ_PATH)/%.o: %.c
 	@$(eval SHELL:=/bin/bash)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $? -o $@
-	@echo -e "🔧 Source files: $(shell ls -1 $(OBJ_PATH) | wc -l) / 81\r\c"
+	@echo -e "🔧 Source files: $(shell ls -1 $(OBJ_PATH) | wc -l) / 82\r\c"
 
 clean:
 	@rm -rf $(OBJ_PATH)

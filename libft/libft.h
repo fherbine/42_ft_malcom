@@ -15,6 +15,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 # include <sys/types.h>
 # include <inttypes.h>
 # include <sys/uio.h>
@@ -41,6 +42,8 @@ typedef struct			s_gnl
 	int					fd;
 	struct s_gnl		*next;
 }						t_gnl;
+
+uint8_t 				ft_isstrnumber(char *str);
 
 size_t					ft_strlen(const char *s);
 
