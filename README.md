@@ -79,7 +79,7 @@ $ sniff blackhat.pcap # sniff network in/out on 192.168.42.2 [if=eth1]
 
 ```
 Usage:
-sudo ./ft_malcom [ -h -v ] [ -I ] | [-p <src IP / hostname> <src MAC addr> <target IP / hostname> <target MAC>] | [-f [-i interval] <src IP / hostname> <target IP / hostname>]
+sudo ./ft_malcom [ -h -v ] [-I ] | [-p <spoofed IP / hostname> <spoofed MAC addr> <target IP / hostname> <target MAC>] | [-f [-i interval] <spoofed IP / hostname> <target IP / hostname>]
  -h     Display usage & exit.
  -v     Enable verbose mode.
  -p     Perform an ARP Poisoning attack.
@@ -87,13 +87,13 @@ sudo ./ft_malcom [ -h -v ] [ -I ] | [-p <src IP / hostname> <src MAC addr> <targ
  -I     Use the interactive mode (using ARP flooding).
 
 Poisonning arguments:
- src host/IP    Source IP address / hostname.
- src MAC        Source MAC address.
+ spoofed host/IP        Source IP address / hostname.
+ spoofed MAC    Source MAC address.
  dst host/IP    Targetted IP address / hostname.
  dst MAC        Targetted MAC address.
 
 Poisonning arguments:
- src host/IP    Source IP address / hostname.
+ spoofed host/IP        Source IP address / hostname.
  dst host/IP    Targetted IP address / hostname.
 
 Poisonning options:
@@ -151,7 +151,7 @@ Then type:
 [vagrant@blackhat ~]$ cd /tmp/ft_malcom
 [vagrant@blackhat ft_malcom]$ make
 [...]
-[vagrant@blackhat ft_malcom]$ sudo ./ft_malcom -p <target IP> ff:ff:ff:ff:ff:ff <spoofed IP> <your MAC address>
+[vagrant@blackhat ft_malcom]$ sudo ./ft_malcom -p <spoofed IP> <spoofed MAC address> <target IP> ff:ff:ff:ff:ff:ff 
 ```
 
 ### ARP flooding
@@ -163,7 +163,7 @@ To test it (on _black_)
 [vagrant@blackhat ~]$ cd /tmp/ft_malcom
 [vagrant@blackhat ft_malcom]$ make
 [...]
-[vagrant@blackhat ft_malcom]$ sudo ./ft_malcom -v -f <targetted IP> <spoofed IP>
+[vagrant@blackhat ft_malcom]$ sudo ./ft_malcom -v -f <spoofed IP> <targetted IP>
 ```
 
 ### Start a test environment (Docker + GNS3)
