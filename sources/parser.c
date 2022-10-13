@@ -38,10 +38,10 @@ void	get_args(int start, int end, char **argv, t_malcom *mstruct)
 			}
 			else
 			{
-				if (!mstruct->src_host.hostname)
-					mstruct->src_host.hostname = argv[i];
-				else if (!mstruct->dst_host.hostname)
+				if (!mstruct->dst_host.hostname)
 					mstruct->dst_host.hostname = argv[i];
+				else if (!mstruct->src_host.hostname)
+					mstruct->src_host.hostname = argv[i];
 				else {
 					free_malcom_struct(mstruct);
 					invalid_option(argv[i]);
@@ -50,14 +50,14 @@ void	get_args(int start, int end, char **argv, t_malcom *mstruct)
 		}
 		else
 		{
-			if (!mstruct->src_host.hostname)
-				mstruct->src_host.hostname = argv[i];
-			else if (!mstruct->src_host.macstr)
-				mstruct->src_host.macstr = argv[i];
-			else if (!mstruct->dst_host.hostname)
+			if (!mstruct->dst_host.hostname)
 				mstruct->dst_host.hostname = argv[i];
 			else if (!mstruct->dst_host.macstr)
 				mstruct->dst_host.macstr = argv[i];
+			else if (!mstruct->src_host.hostname)
+				mstruct->src_host.hostname = argv[i];
+			else if (!mstruct->src_host.macstr)
+				mstruct->src_host.macstr = argv[i];
 			else {
 				free_malcom_struct(mstruct);
 				invalid_option(argv[i]);

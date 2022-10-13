@@ -98,9 +98,9 @@ void interactive(t_malcom *mstruct)
 	freeavailableips(ips);
 	END_IHM_CONTEXT();
 
-	printf("Performing an ARP flooding attack on %s. Spoofed IP is %s\n", target_ip, spoofed_ip);
+	printf("Performing an ARP flooding attack on %s. Spoofed IP is %s\n", spoofed_ip, target_ip);
 
-	char *_argv[6] = {"", "-v", "-f", target_ip, spoofed_ip, NULL};
+	char *_argv[6] = {"", "-v", "-f", spoofed_ip, target_ip, NULL};
 
 	char **argv = ft_copy_tab(_argv);
 

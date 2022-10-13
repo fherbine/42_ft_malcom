@@ -20,8 +20,8 @@ void invalid_mac_addr(char *mac)
 void display_usage(uint8_t w_exit)
 {
 	printf("Usage:\n");
-	printf("sudo ./ft_malcom [ -h -v ] [-I ] | [-p <src IP / hostname> <src MAC addr> \
-<target IP / hostname> <target MAC>] | [-f [-i interval] <src IP / hostname> \
+	printf("sudo ./ft_malcom [ -h -v ] [-I ] | [-p <spoofed IP / hostname> <spoofed MAC addr> \
+<target IP / hostname> <target MAC>] | [-f [-i interval] <spoofed IP / hostname> \
 <target IP / hostname>]\n");
 	printf(" -h\tDisplay usage & exit.\n");
 	printf(" -v\tEnable verbose mode.\n");
@@ -30,13 +30,13 @@ void display_usage(uint8_t w_exit)
 	printf(" -I\tUse the interactive mode (using ARP flooding).\n");
 	printf("\n");
 	printf("Poisonning arguments:\n");
-	printf(" src host/IP\tSource IP address / hostname.\n");
-	printf(" src MAC\tSource MAC address.\n");
+	printf(" spoofed host/IP\tSource IP address / hostname.\n");
+	printf(" spoofed MAC\tSource MAC address.\n");
 	printf(" dst host/IP\tTargetted IP address / hostname.\n");
 	printf(" dst MAC\tTargetted MAC address.\n");
 	printf("\n");
 	printf("Poisonning arguments:\n");
-	printf(" src host/IP\tSource IP address / hostname.\n");
+	printf(" spoofed host/IP\tSource IP address / hostname.\n");
 	printf(" dst host/IP\tTargetted IP address / hostname.\n");
 	printf("\n");
 	printf("Poisonning options:\n");
