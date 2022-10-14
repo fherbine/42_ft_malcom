@@ -1,7 +1,7 @@
 ft_malcom
 =======
 
-An [ARP spoofing](https://en.wikipedia.org/wiki/ARP_spoofing) program developped in C language.
+An [ARP spoofing](https://en.wikipedia.org/wiki/ARP_spoofing) program developped in C language at 42 School. Final grade: **125/100**.
 
 **IMPORTANT:** This program has been developped for educationnal purpose, do not use it in a public network.
 
@@ -79,25 +79,29 @@ $ sniff blackhat.pcap # sniff network in/out on 192.168.42.2 [if=eth1]
 
 ```
 Usage:
-sudo ./ft_malcom [ -h -v ] [-I ] | [-p <spoofed IP / hostname> <spoofed MAC addr> <target IP / hostname> <target MAC>] | [-f [-i interval] <spoofed IP / hostname> <target IP / hostname>]
- -h     Display usage & exit.
- -v     Enable verbose mode.
- -p     Perform an ARP Poisoning attack.
- -f     Perform an ARP Flooding attack.
- -I     Use the interactive mode (using ARP flooding).
+sudo ./ft_malcom [ -h -v ] [-I ] | [-p [-R] <spoofed IP / hostname> <spoofed MAC addr> <target IP / hostname> <target MAC>] | [-f [-i interval] <spoofed IP / hostname> <target IP / hostname>]
+ -h	Display usage & exit.
+ -v	Enable verbose mode.
+ -p	Perform an ARP Poisoning attack.
+ -f	Perform an ARP Flooding attack.
+ -I	Use the interactive mode (using ARP flooding).
 
 Poisonning arguments:
- spoofed host/IP        Source IP address / hostname.
- spoofed MAC    Source MAC address.
- dst host/IP    Targetted IP address / hostname.
- dst MAC        Targetted MAC address.
-
-Poisonning arguments:
- spoofed host/IP        Source IP address / hostname.
- dst host/IP    Targetted IP address / hostname.
+ spoofed host/IP	Source IP address / hostname.
+ spoofed MAC		Source MAC address.
+ dst host/IP		Targetted IP address / hostname.
+ dst MAC			Targetted MAC address.
 
 Poisonning options:
- -i <interval>  Custom flooding interval (default 5 secs).
+ -R          		Send an ARP REQUEST back after a delay to ensure cache poisonning.
+
+Flooding arguments:
+ spoofed host/IP	Source IP address / hostname.
+ dst host/IP		Targetted IP address / hostname.
+
+Flooding options:
+ -i <interval>		Custom flooding interval (default 5 secs).
+
 ```
 
 ### Getting started with the interactive mode
